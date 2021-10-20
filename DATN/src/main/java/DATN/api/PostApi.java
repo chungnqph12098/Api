@@ -45,7 +45,7 @@ public class PostApi {
 	public ResponseEntity<questionHS> put(@PathVariable("x") String id,@RequestBody questionHS questionHS){
 		return ResponseEntity.ok(questionHS);
 	}
-	@DeleteMapping("/Put/{x}")
+	@DeleteMapping("/delete/{x}")
 	public ResponseEntity<Void> delete(@PathVariable("x") String id){
 		return ResponseEntity.ok().build();
 	}
