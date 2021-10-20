@@ -5,7 +5,7 @@ import java.util.List;
 import DATN.Class.Reply;
 import DATN.Class.Reply_Vote;
 import DATN.Class.Users;
-import DATN.Class.questionHS;
+import DATN.Class.QuestionHS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

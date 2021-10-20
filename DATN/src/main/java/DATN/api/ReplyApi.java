@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import DATN.Class.Posts;
 import DATN.Class.Reply;
 import DATN.Class.Users;
-import DATN.Class.questionHS;
+import DATN.Class.QuestionHS;
 import DATN.ClassDTO.questionHSDTO;
 import DATN.ClassDTO.replyDTO;
 import DATN.DAO.ReplyDAO;

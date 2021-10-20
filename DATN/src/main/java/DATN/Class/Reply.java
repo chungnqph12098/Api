@@ -32,7 +32,7 @@ public class Reply {
 	
 	@ManyToOne
 	@JoinColumn(name = "questionHS_id")
-	questionHS questionhs;
+	QuestionHS questionhs;
 	
 	private String content;
 	

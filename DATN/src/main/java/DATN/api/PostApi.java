@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import DATN.Class.Posts;
-import DATN.Class.questionHS;
+import DATN.Class.QuestionHS;
 import DATN.ClassDTO.questionHSDTO;
 import DATN.DAO.Post_VoteDAO;
 import DATN.DAO.UsersDAO;
@@ -38,11 +38,11 @@ public class PostApi {
 		return ResponseEntity.ok(getList());
 	}
 	@PostMapping("/Post")
-	public ResponseEntity<questionHS> post(@RequestBody questionHS questionHS){
+	public ResponseEntity<QuestionHS> post(@RequestBody QuestionHS questionHS){
 		return ResponseEntity.ok(questionHS);
 	}
 	@PutMapping("/Put/{x}")
-	public ResponseEntity<questionHS> put(@PathVariable("x") String id,@RequestBody questionHS questionHS){
+	public ResponseEntity<QuestionHS> put(@PathVariable("x") String id,@RequestBody QuestionHS questionHS){
 		return ResponseEntity.ok(questionHS);
 	}
 	@DeleteMapping("/Put/{x}")
@@ -51,8 +51,8 @@ public class PostApi {
 	}
 	public List<questionHSDTO> getList() {
 		List<questionHSDTO> list =new ArrayList<questionHSDTO>();
-		List<questionHS> listq= quetionHSDAO.findAll();
-		for(questionHS dl:listq) {
+		List<QuestionHS> listq= quetionHSDAO.findAll();
+		for(QuestionHS dl:listq) {
 			questionHSDTO hsdto =new questionHSDTO();
 			hsdto.setHs(dl);
 			hsdto.setPost_Votes(post_voteDAO.find(dl.getPosts()));

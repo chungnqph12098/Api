@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "questionHS")
 
-public class questionHS implements Serializable {
+public class QuestionHS implements Serializable {
 	@Id
 	private Integer id;
 	private String content;
