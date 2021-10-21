@@ -32,7 +32,6 @@ public class Users implements Serializable {
 	private String email;
 	private Integer point;
 	private String role;
-	private String appellation;	
 	private Date create_date;
 	private String Img;	
 	@JsonIgnore

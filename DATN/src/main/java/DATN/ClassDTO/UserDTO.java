@@ -2,8 +2,8 @@ package DATN.ClassDTO;
 
 import java.util.List;
 
-import DATN.Class.Post_Vote;
-import DATN.Class.QuestionHS;
+import DATN.Class.Users;
+import DATN.Class.Users_Posts;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class questionHSDTO  {
-	private QuestionHS hs;
-	private List<Post_Vote> post_Votes;
+public class UserDTO {
+	private Users users;
+	private List<Users_Posts> users_posts;
+	
 }
