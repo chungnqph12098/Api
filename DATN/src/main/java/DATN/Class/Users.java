@@ -43,5 +43,10 @@ public class Users implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "users")
 	List<Post_Vote> Post_Vote;
-	
+	@JsonIgnore
+	@OneToMany(mappedBy = "users")
+	List<reports> reports;
+	@JsonIgnore
+	@OneToMany(mappedBy = "users")
+	List<user_report> user_report;
 }
