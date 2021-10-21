@@ -42,4 +42,6 @@ public class Posts implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "posts")
 	List<Post_Vote> Post_Vote;
+	
+
 }
