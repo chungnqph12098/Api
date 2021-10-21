@@ -5,7 +5,7 @@ import java.util.List;
 
 import DATN.Class.Post_Vote;
 import DATN.Class.Posts;
-import DATN.Class.questionHS;
+import DATN.Class.QuestionHS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class questionHSDTO  {
-	private questionHS hs;
+	private QuestionHS hs;
 	private List<Post_Vote> post_Votes;
 }
