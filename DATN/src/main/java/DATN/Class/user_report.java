@@ -2,6 +2,8 @@ package DATN.Class;
 
 
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class user_report {
 	@Id
 	private Integer id;
-	private Boolean LikeOrDis;
+	private Date create_date;
 	@ManyToOne
 	@JoinColumn(name = "User_id")
 	Users users;

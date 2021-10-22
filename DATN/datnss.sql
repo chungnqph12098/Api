@@ -189,7 +189,7 @@ INSERT INTO `reply_vote` (`id`, `User_id`, `reply_id`, `LikeOrDis`) VALUES
 
 CREATE TABLE `reports` (
   `id` bigint(20) NOT NULL,
-  `User_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
   `content` varchar(1000) DEFAULT NULL,
   `status` bit(1) DEFAULT NULL,
   `create_date` date DEFAULT NULL
@@ -317,7 +317,7 @@ CREATE TABLE `user_report` (
   `id` bigint(20) NOT NULL,
   `User_id` bigint(20) DEFAULT NULL,
   `reports_id` bigint(20) DEFAULT NULL,
-  `LikeOrDis` bit(1) DEFAULT NULL
+  `create_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -609,7 +609,7 @@ ALTER TABLE `reply_vote`
 -- Các ràng buộc cho bảng `reports`
 --
 ALTER TABLE `reports`
-  ADD CONSTRAINT `fk_usersreport` FOREIGN KEY (`User_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_usersreport` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `report_question`

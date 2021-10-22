@@ -22,7 +22,7 @@ public class Post_Vote {
 	private Integer LikeOrDis;
 	private Integer PostPins;
 	@ManyToOne
-	@JoinColumn(name = "User_id")
+	@JoinColumn(name = "user_id")
 	Users users;
 	@ManyToOne
 	@JoinColumn(name = "posts_id")
