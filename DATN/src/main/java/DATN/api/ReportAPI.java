@@ -2,6 +2,7 @@ package DATN.api;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import DATN.Class.questionHS;
-import DATN.Class.reports;
+import DATN.Class.QuestionHS;
+import DATN.Class.Reports;
 import DATN.Class.user_report;
 import DATN.DAO.User_reportDAO;
 import DATN.DAO.reportDAO;
@@ -29,11 +30,11 @@ public class ReportAPI {
 	@Autowired
 	reportDAO reportDAO;
 	@GetMapping("/get")
-	public ResponseEntity<List<reports>> getreport() {
+	public ResponseEntity<List<Reports>> getreport() {
 		return ResponseEntity.ok(reportDAO.findAll());
 	}
 	@PostMapping("/Post")
-	public ResponseEntity<reports> post(@Validated @RequestBody reports questionHS, BindingResult result){
+	public ResponseEntity<Reports> post(@Validated @RequestBody Reports questionHS, BindingResult result){
 		if (result.hasErrors()) {
 			return ResponseEntity.badRequest().build();
 		} else {
@@ -46,7 +47,7 @@ public class ReportAPI {
 		
 	}
 	@PutMapping("/Put/{x}")
-	public ResponseEntity<reports> put(@PathVariable("x") Integer id,@Validated @RequestBody reports questionHS, BindingResult result){
+	public ResponseEntity<Reports> put(@PathVariable("x") Integer id,@Validated @RequestBody Reports questionHS, BindingResult result){
 		if (result.hasErrors()) {
 			return ResponseEntity.badRequest().build();
 		} else {

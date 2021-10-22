@@ -28,6 +28,6 @@ public class user_report {
 	Users users;
 	@ManyToOne
 	@JoinColumn(name = "reports_id")
-	reports reports;
+	Reports reports;
 
 }
