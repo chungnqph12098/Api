@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 16, 2021 lúc 11:20 PM
+-- Thời gian đã tạo: Th10 22, 2021 lúc 05:32 PM
 -- Phiên bản máy phục vụ: 10.4.18-MariaDB
 -- Phiên bản PHP: 8.0.3
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `datnss`
 --
-CREATE DATABASE IF NOT EXISTS `datnss` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `datnss`;
 
 -- --------------------------------------------------------
 
@@ -29,12 +27,10 @@ USE `datnss`;
 -- Cấu trúc bảng cho bảng `branches`
 --
 
-DROP TABLE IF EXISTS `branches`;
-CREATE TABLE IF NOT EXISTS `branches` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `branches` (
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `create_date` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `create_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -43,13 +39,11 @@ CREATE TABLE IF NOT EXISTS `branches` (
 -- Cấu trúc bảng cho bảng `loginorlogout`
 --
 
-DROP TABLE IF EXISTS `loginorlogout`;
-CREATE TABLE IF NOT EXISTS `loginorlogout` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `loginorlogout` (
+  `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `login` date DEFAULT NULL,
-  `logout` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `logout` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -58,9 +52,8 @@ CREATE TABLE IF NOT EXISTS `loginorlogout` (
 -- Cấu trúc bảng cho bảng `mynotice`
 --
 
-DROP TABLE IF EXISTS `mynotice`;
-CREATE TABLE IF NOT EXISTS `mynotice` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `mynotice` (
+  `id` bigint(20) NOT NULL,
   `User_id` bigint(20) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `content` varchar(1000) DEFAULT NULL,
@@ -74,9 +67,8 @@ CREATE TABLE IF NOT EXISTS `mynotice` (
 -- Cấu trúc bảng cho bảng `posts`
 --
 
-DROP TABLE IF EXISTS `posts`;
-CREATE TABLE IF NOT EXISTS `posts` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `posts` (
+  `id` bigint(20) NOT NULL,
   `User_id` bigint(20) DEFAULT NULL,
   `type` bit(1) DEFAULT NULL,
   `anonymus` bit(1) DEFAULT NULL,
@@ -88,21 +80,8 @@ CREATE TABLE IF NOT EXISTS `posts` (
 --
 
 INSERT INTO `posts` (`id`, `User_id`, `type`, `anonymus`, `displayStatus`) VALUES
-(1, 10, b'1', b'1', b'1'),
-(2, 13, b'1', b'0', b'1'),
-(3, 16, b'1', b'1', b'1'),
-(4, 5, b'1', b'1', b'1'),
-(5, 4, b'1', b'1', b'0'),
-(6, 3, b'1', b'1', b'1'),
-(7, 1, b'1', b'0', b'1'),
-(8, 1, b'1', b'1', b'1'),
-(9, 11, b'1', b'1', b'1'),
-(10, 11, b'1', b'1', b'0'),
-(11, 12, b'1', b'1', b'1'),
-(12, 13, b'1', b'0', b'1'),
-(13, 14, b'1', b'1', b'1'),
-(14, 11, b'1', b'1', b'1'),
-(15, 10, b'1', b'1', b'0');
+(1, 1, b'1', b'1', b'1'),
+(2, 10, b'1', b'1', b'1');
 
 -- --------------------------------------------------------
 
@@ -110,14 +89,12 @@ INSERT INTO `posts` (`id`, `User_id`, `type`, `anonymus`, `displayStatus`) VALUE
 -- Cấu trúc bảng cho bảng `post_approval`
 --
 
-DROP TABLE IF EXISTS `post_approval`;
-CREATE TABLE IF NOT EXISTS `post_approval` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `post_approval` (
+  `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `post_id` bigint(20) NOT NULL,
   `status` bit(1) DEFAULT NULL,
-  `create_date` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `create_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -126,25 +103,13 @@ CREATE TABLE IF NOT EXISTS `post_approval` (
 -- Cấu trúc bảng cho bảng `post_vote`
 --
 
-DROP TABLE IF EXISTS `post_vote`;
-CREATE TABLE IF NOT EXISTS `post_vote` (
-  `id` bigint(20) DEFAULT NULL,
-  `User_id` bigint(20) DEFAULT NULL,
+CREATE TABLE `post_vote` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
   `posts_id` bigint(20) DEFAULT NULL,
   `LikeOrDis` bit(1) DEFAULT NULL,
   `PostPins` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `post_vote`
---
-
-INSERT INTO `post_vote` (`id`, `User_id`, `posts_id`, `LikeOrDis`, `PostPins`) VALUES
-(1, 1, 1, b'1', NULL),
-(2, 4, 1, b'1', NULL),
-(3, 2, 2, b'0', NULL),
-(4, 10, 2, b'0', NULL),
-(5, 11, 4, b'1', NULL);
 
 -- --------------------------------------------------------
 
@@ -152,9 +117,8 @@ INSERT INTO `post_vote` (`id`, `User_id`, `posts_id`, `LikeOrDis`, `PostPins`) V
 -- Cấu trúc bảng cho bảng `questionhs`
 --
 
-DROP TABLE IF EXISTS `questionhs`;
-CREATE TABLE IF NOT EXISTS `questionhs` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `questionhs` (
+  `id` bigint(20) NOT NULL,
   `posts_id` bigint(20) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `content` varchar(8000) DEFAULT NULL,
@@ -168,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `questionhs` (
 --
 
 INSERT INTO `questionhs` (`id`, `posts_id`, `title`, `content`, `point`, `Limg`, `create_date`) VALUES
-(1, 1, 'cau hoi 1', 'cau hoi 1', 10, 'anh.img', '2021-10-10'),
-(2, 1, 'cau hoi 4', 'cau hoi 4', 20, 'img.img', '2021-10-10');
+(1, 1, 'Title cau 1', 'content cau 1', 10, 'anh.img', '2021-10-10'),
+(2, 2, 'Title cau 2', 'content cau 2', 10, 'anh.img', '2021-10-10');
 
 -- --------------------------------------------------------
 
@@ -177,9 +141,8 @@ INSERT INTO `questionhs` (`id`, `posts_id`, `title`, `content`, `point`, `Limg`,
 -- Cấu trúc bảng cho bảng `reply`
 --
 
-DROP TABLE IF EXISTS `reply`;
-CREATE TABLE IF NOT EXISTS `reply` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `reply` (
+  `id` bigint(20) NOT NULL,
   `questionHS_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `content` varchar(1000) DEFAULT NULL,
@@ -196,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `reply` (
 
 INSERT INTO `reply` (`id`, `questionHS_id`, `user_id`, `content`, `type`, `anonymus`, `status`, `Limg`, `create_date`) VALUES
 (1, 1, 1, 'tra loi cau 1', b'1', b'1', '1', 'anh.img', '2021-10-10'),
-(1, 2, 4, 'tra loi cau 4', b'1', b'1', '1', 'anh.img', '2021-10-10');
+(2, 2, 10, 'tra loi cau 2', b'1', b'1', '1', 'anh.img', '2021-10-10');
 
 -- --------------------------------------------------------
 
@@ -204,8 +167,7 @@ INSERT INTO `reply` (`id`, `questionHS_id`, `user_id`, `content`, `type`, `anony
 -- Cấu trúc bảng cho bảng `reply_vote`
 --
 
-DROP TABLE IF EXISTS `reply_vote`;
-CREATE TABLE IF NOT EXISTS `reply_vote` (
+CREATE TABLE `reply_vote` (
   `id` bigint(20) DEFAULT NULL,
   `User_id` bigint(20) DEFAULT NULL,
   `reply_id` bigint(20) DEFAULT NULL,
@@ -225,21 +187,13 @@ INSERT INTO `reply_vote` (`id`, `User_id`, `reply_id`, `LikeOrDis`) VALUES
 -- Cấu trúc bảng cho bảng `reports`
 --
 
-DROP TABLE IF EXISTS `reports`;
-CREATE TABLE IF NOT EXISTS `reports` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `reports` (
+  `id` bigint(20) NOT NULL,
   `User_id` bigint(20) DEFAULT NULL,
   `content` varchar(1000) DEFAULT NULL,
   `status` bit(1) DEFAULT NULL,
   `create_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `reports`
---
-
-INSERT INTO `reports` (`id`, `User_id`, `content`, `status`, `create_date`) VALUES
-(1, 1, '1', b'1', '2021-10-10');
 
 -- --------------------------------------------------------
 
@@ -247,19 +201,11 @@ INSERT INTO `reports` (`id`, `User_id`, `content`, `status`, `create_date`) VALU
 -- Cấu trúc bảng cho bảng `report_question`
 --
 
-DROP TABLE IF EXISTS `report_question`;
-CREATE TABLE IF NOT EXISTS `report_question` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `report_question` (
+  `id` bigint(20) NOT NULL,
   `reports_id` bigint(20) DEFAULT NULL,
   `questionHS_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `report_question`
---
-
-INSERT INTO `report_question` (`id`, `reports_id`, `questionHS_id`) VALUES
-(1, 2, 11);
 
 -- --------------------------------------------------------
 
@@ -267,19 +213,11 @@ INSERT INTO `report_question` (`id`, `reports_id`, `questionHS_id`) VALUES
 -- Cấu trúc bảng cho bảng `report_reply`
 --
 
-DROP TABLE IF EXISTS `report_reply`;
-CREATE TABLE IF NOT EXISTS `report_reply` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `report_reply` (
+  `id` bigint(20) NOT NULL,
   `reports_id` bigint(20) DEFAULT NULL,
   `reply_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `report_reply`
---
-
-INSERT INTO `report_reply` (`id`, `reports_id`, `reply_id`) VALUES
-(1, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -287,9 +225,8 @@ INSERT INTO `report_reply` (`id`, `reports_id`, `reply_id`) VALUES
 -- Cấu trúc bảng cho bảng `subject`
 --
 
-DROP TABLE IF EXISTS `subject`;
-CREATE TABLE IF NOT EXISTS `subject` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `subject` (
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `SmallPoint` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -300,8 +237,8 @@ CREATE TABLE IF NOT EXISTS `subject` (
 
 INSERT INTO `subject` (`id`, `name`, `SmallPoint`) VALUES
 (1, 'Java', 10),
-(1, 'PHP', 10),
-(1, 'C+', 10);
+(2, 'PHP', 10),
+(3, 'C+', 10);
 
 -- --------------------------------------------------------
 
@@ -309,9 +246,8 @@ INSERT INTO `subject` (`id`, `name`, `SmallPoint`) VALUES
 -- Cấu trúc bảng cho bảng `systemnotifications`
 --
 
-DROP TABLE IF EXISTS `systemnotifications`;
-CREATE TABLE IF NOT EXISTS `systemnotifications` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `systemnotifications` (
+  `id` bigint(20) NOT NULL,
   `User_id` bigint(20) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `content` varchar(1000) DEFAULT NULL,
@@ -325,28 +261,11 @@ CREATE TABLE IF NOT EXISTS `systemnotifications` (
 -- Cấu trúc bảng cho bảng `tags`
 --
 
-DROP TABLE IF EXISTS `tags`;
-CREATE TABLE IF NOT EXISTS `tags` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `tags` (
+  `id` bigint(20) NOT NULL,
   `subject_id` bigint(20) DEFAULT NULL,
   `posts_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `tags`
---
-
-INSERT INTO `tags` (`id`, `subject_id`, `posts_id`) VALUES
-(1, 1, 1),
-(2, 2, 2),
-(3, 3, 3),
-(4, 1, 4),
-(5, 1, 5),
-(6, 3, 6),
-(7, 2, 7),
-(8, 1, 8),
-(9, 3, 9),
-(10, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -354,8 +273,7 @@ INSERT INTO `tags` (`id`, `subject_id`, `posts_id`) VALUES
 -- Cấu trúc bảng cho bảng `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` bigint(20) NOT NULL,
   `full_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -363,8 +281,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role` varchar(255) DEFAULT NULL,
   `appellation` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `create_date` date DEFAULT NULL,
-  `Img` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `Img` varchar(255) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -382,21 +299,13 @@ INSERT INTO `users` (`id`, `full_name`, `email`, `point`, `role`, `appellation`,
 -- Cấu trúc bảng cho bảng `users_posts`
 --
 
-DROP TABLE IF EXISTS `users_posts`;
-CREATE TABLE IF NOT EXISTS `users_posts` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `users_posts` (
+  `id` bigint(20) NOT NULL,
   `User_id` bigint(20) DEFAULT NULL,
   `posts_id` bigint(20) DEFAULT NULL,
   `status` bit(1) DEFAULT NULL,
   `create_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `users_posts`
---
-
-INSERT INTO `users_posts` (`id`, `User_id`, `posts_id`, `status`, `create_date`) VALUES
-(1, 1, 1, b'1', '2021-10-10');
 
 -- --------------------------------------------------------
 
@@ -404,20 +313,344 @@ INSERT INTO `users_posts` (`id`, `User_id`, `posts_id`, `status`, `create_date`)
 -- Cấu trúc bảng cho bảng `user_report`
 --
 
-DROP TABLE IF EXISTS `user_report`;
-CREATE TABLE IF NOT EXISTS `user_report` (
-  `id` bigint(20) DEFAULT NULL,
+CREATE TABLE `user_report` (
+  `id` bigint(20) NOT NULL,
   `User_id` bigint(20) DEFAULT NULL,
   `reports_id` bigint(20) DEFAULT NULL,
   `LikeOrDis` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `user_report`
+-- Chỉ mục cho các bảng đã đổ
 --
 
-INSERT INTO `user_report` (`id`, `User_id`, `reports_id`, `LikeOrDis`) VALUES
-(1, 1, 1, b'1');
+--
+-- Chỉ mục cho bảng `branches`
+--
+ALTER TABLE `branches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `loginorlogout`
+--
+ALTER TABLE `loginorlogout`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_users` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `mynotice`
+--
+ALTER TABLE `mynotice`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_usersnotice` (`User_id`);
+
+--
+-- Chỉ mục cho bảng `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `User_id` (`User_id`);
+
+--
+-- Chỉ mục cho bảng `post_approval`
+--
+ALTER TABLE `post_approval`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FOREIGN KEY` (`user_id`),
+  ADD KEY `FK` (`post_id`);
+
+--
+-- Chỉ mục cho bảng `post_vote`
+--
+ALTER TABLE `post_vote`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FOREIGNKey` (`user_id`),
+  ADD KEY `FOREIGN KEY2` (`posts_id`);
+
+--
+-- Chỉ mục cho bảng `questionhs`
+--
+ALTER TABLE `questionhs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `questionhs_ibfk_1` (`posts_id`);
+
+--
+-- Chỉ mục cho bảng `reply`
+--
+ALTER TABLE `reply`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_usersreply` (`user_id`),
+  ADD KEY `fk_questionHSreply` (`questionHS_id`);
+
+--
+-- Chỉ mục cho bảng `reply_vote`
+--
+ALTER TABLE `reply_vote`
+  ADD KEY `fk_replyvote` (`reply_id`),
+  ADD KEY `fk_uservote` (`User_id`);
+
+--
+-- Chỉ mục cho bảng `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_usersreport` (`User_id`);
+
+--
+-- Chỉ mục cho bảng `report_question`
+--
+ALTER TABLE `report_question`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FOREIGN KEY1` (`questionHS_id`),
+  ADD KEY `FoReNiGn KeY2` (`reports_id`);
+
+--
+-- Chỉ mục cho bảng `report_reply`
+--
+ALTER TABLE `report_reply`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Fk1` (`reply_id`),
+  ADD KEY `fK2` (`reports_id`);
+
+--
+-- Chỉ mục cho bảng `subject`
+--
+ALTER TABLE `subject`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `systemnotifications`
+--
+ALTER TABLE `systemnotifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FOREIGNkey1` (`User_id`);
+
+--
+-- Chỉ mục cho bảng `tags`
+--
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKey1` (`posts_id`),
+  ADD KEY `Fkey2` (`subject_id`);
+
+--
+-- Chỉ mục cho bảng `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `users_posts`
+--
+ALTER TABLE `users_posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKKKK1` (`User_id`),
+  ADD KEY `FKKK2` (`posts_id`);
+
+--
+-- Chỉ mục cho bảng `user_report`
+--
+ALTER TABLE `user_report`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FFkk1` (`User_id`),
+  ADD KEY `FFFKk2` (`reports_id`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `branches`
+--
+ALTER TABLE `branches`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `loginorlogout`
+--
+ALTER TABLE `loginorlogout`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `post_approval`
+--
+ALTER TABLE `post_approval`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `post_vote`
+--
+ALTER TABLE `post_vote`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `questionhs`
+--
+ALTER TABLE `questionhs`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `reply`
+--
+ALTER TABLE `reply`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `report_question`
+--
+ALTER TABLE `report_question`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `report_reply`
+--
+ALTER TABLE `report_reply`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `subject`
+--
+ALTER TABLE `subject`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `systemnotifications`
+--
+ALTER TABLE `systemnotifications`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `users_posts`
+--
+ALTER TABLE `users_posts`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `user_report`
+--
+ALTER TABLE `user_report`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `loginorlogout`
+--
+ALTER TABLE `loginorlogout`
+  ADD CONSTRAINT `fk_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `mynotice`
+--
+ALTER TABLE `mynotice`
+  ADD CONSTRAINT `fk_usersnotice` FOREIGN KEY (`User_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`User_id`) REFERENCES `users` (`id`);
+
+--
+-- Các ràng buộc cho bảng `post_approval`
+--
+ALTER TABLE `post_approval`
+  ADD CONSTRAINT `FK` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
+  ADD CONSTRAINT `FOREIGN KEY` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Các ràng buộc cho bảng `post_vote`
+--
+ALTER TABLE `post_vote`
+  ADD CONSTRAINT `FOREIGN KEY2` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`),
+  ADD CONSTRAINT `FOREIGNKey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Các ràng buộc cho bảng `questionhs`
+--
+ALTER TABLE `questionhs`
+  ADD CONSTRAINT `questionhs_ibfk_1` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`);
+
+--
+-- Các ràng buộc cho bảng `reply`
+--
+ALTER TABLE `reply`
+  ADD CONSTRAINT `fk_questionHSreply` FOREIGN KEY (`questionHS_id`) REFERENCES `questionhs` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_usersreply` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Các ràng buộc cho bảng `reply_vote`
+--
+ALTER TABLE `reply_vote`
+  ADD CONSTRAINT `fk_replyvote` FOREIGN KEY (`reply_id`) REFERENCES `reply` (`id`),
+  ADD CONSTRAINT `fk_uservote` FOREIGN KEY (`User_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `reports`
+--
+ALTER TABLE `reports`
+  ADD CONSTRAINT `fk_usersreport` FOREIGN KEY (`User_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `report_question`
+--
+ALTER TABLE `report_question`
+  ADD CONSTRAINT `FOREIGN KEY1` FOREIGN KEY (`questionHS_id`) REFERENCES `questionhs` (`id`),
+  ADD CONSTRAINT `FoReNiGn KeY2` FOREIGN KEY (`reports_id`) REFERENCES `reports` (`id`);
+
+--
+-- Các ràng buộc cho bảng `report_reply`
+--
+ALTER TABLE `report_reply`
+  ADD CONSTRAINT `Fk1` FOREIGN KEY (`reply_id`) REFERENCES `reply` (`id`),
+  ADD CONSTRAINT `fK2` FOREIGN KEY (`reports_id`) REFERENCES `reports` (`id`);
+
+--
+-- Các ràng buộc cho bảng `systemnotifications`
+--
+ALTER TABLE `systemnotifications`
+  ADD CONSTRAINT `FOREIGNkey1` FOREIGN KEY (`User_id`) REFERENCES `users` (`id`);
+
+--
+-- Các ràng buộc cho bảng `tags`
+--
+ALTER TABLE `tags`
+  ADD CONSTRAINT `FKey1` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`),
+  ADD CONSTRAINT `Fkey2` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`id`);
+
+--
+-- Các ràng buộc cho bảng `users_posts`
+--
+ALTER TABLE `users_posts`
+  ADD CONSTRAINT `FKKK2` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`),
+  ADD CONSTRAINT `FKKKK1` FOREIGN KEY (`User_id`) REFERENCES `users` (`id`);
+
+--
+-- Các ràng buộc cho bảng `user_report`
+--
+ALTER TABLE `user_report`
+  ADD CONSTRAINT `FFFKk2` FOREIGN KEY (`reports_id`) REFERENCES `reports` (`id`),
+  ADD CONSTRAINT `FFkk1` FOREIGN KEY (`User_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
