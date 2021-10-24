@@ -1,7 +1,6 @@
 package DATN.api;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import DATN.Class.Posts;
 import DATN.Class.Reply;
-import DATN.Class.Users;
-import DATN.Class.QuestionHS;
-import DATN.ClassDTO.questionHSDTO;
 import DATN.ClassDTO.replyDTO;
+import DATN.DAO.QuetionHSDAO;
 import DATN.DAO.ReplyDAO;
 import DATN.DAO.Reply_VoteDAO;
 import DATN.DAO.UsersDAO;
-import DATN.DAO.QuetionHSDAO;
 
 @CrossOrigin(originPatterns = "http://localhost:3000/")
 @RestController
