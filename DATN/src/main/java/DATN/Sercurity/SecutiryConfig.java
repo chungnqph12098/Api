@@ -18,7 +18,11 @@ public class SecutiryConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .defaultSuccessUrl("/login/success")
                 ;
-
+        
+// //use for test api
+//        .csrf().disable()
+//        .authorizeRequests()
+//            .anyRequest().permitAll();
 	
 }	
 }
