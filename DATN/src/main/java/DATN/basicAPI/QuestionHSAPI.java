@@ -1,6 +1,4 @@
-package DATN.api;
-
-import java.util.ArrayList;
+package DATN.basicAPI;
 
 import java.util.List;
 
@@ -16,58 +14,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import DATN.Class.Posts;
-import DATN.Class.Reply;
-import DATN.Class.Users;
 import DATN.Class.QuestionHS;
-import DATN.ClassDTO.questionHSDTO;
-import DATN.ClassDTO.replyDTO;
-import DATN.DAO.ReplyDAO;
-import DATN.DAO.Reply_VoteDAO;
-import DATN.DAO.UsersDAO;
 import DATN.DAO.QuetionHSDAO;
+
+
 
 @CrossOrigin(originPatterns = "http://localhost:3000/")
 @RestController
-@RequestMapping("Reply")
-public class ReplyApi {
+@RequestMapping("QuetionHS")
+public class QuestionHSAPI {
 	@Autowired
-	ReplyDAO replyDAO;
-	@Autowired
-	UsersDAO usersDAO;
-	@Autowired
-	Reply_VoteDAO reply_voteDAO;
-	@Autowired
-	QuetionHSDAO quetionHSDAO;
-
-	
+	QuetionHSDAO QuetionHSDAO;
 	@GetMapping("/get")
-	public ResponseEntity<List<replyDTO>> getfull() {
-		return ResponseEntity.ok(getList());
+	public ResponseEntity<List<QuestionHS>> getfull() {
+		return ResponseEntity.ok(QuetionHSDAO.findAll());
 	}
 	@PostMapping("/Post")
-	public ResponseEntity<Reply> post(@RequestBody Reply reply){
+	public ResponseEntity<QuestionHS> post(@RequestBody QuestionHS reply){
 		return ResponseEntity.ok(reply);
 	}
 	@PutMapping("/Put/{x}")
-	public ResponseEntity<Reply> put(@PathVariable("x") String id,@RequestBody Reply reply){
+	public ResponseEntity<QuestionHS> put(@PathVariable("x") String id,@RequestBody QuestionHS reply){
 		return ResponseEntity.ok(reply);
 	}
-	@DeleteMapping("/Put/{x}")
+	@DeleteMapping("/Delete/{x}")
 	public ResponseEntity<Void> delete(@PathVariable("x") String id){
 		return ResponseEntity.ok().build();
 	}
-	private List<replyDTO> getList() {
-		List<replyDTO> list = new ArrayList<replyDTO>();
-		List<Reply> listr = replyDAO.findAll();
-		for(Reply l:listr) {
-			replyDTO rDTO = new replyDTO();
-			rDTO.setReply(l);
-			rDTO.setReply_vote(reply_voteDAO.findAll());
-			list.add(rDTO);
-		}
-		return list; 
-	}
-
-
 }

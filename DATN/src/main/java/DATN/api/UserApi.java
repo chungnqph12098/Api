@@ -1,6 +1,7 @@
 package DATN.api;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,11 @@ import DATN.ClassDTO.questionHSDTO;
 import DATN.DAO.Post_VoteDAO;
 import DATN.DAO.ReplyDAO;
 import DATN.DAO.UsersDAO;
-import DATN.DAO.quetionHSDAO;
 
 @CrossOrigin(originPatterns = "http://localhost:3000/")
 @RestController
 @RequestMapping("User")
 public class UserApi {
-	@Autowired
-	quetionHSDAO quetionHSDAO;
 	@Autowired
 	UsersDAO usersDAO;
 	@Autowired
