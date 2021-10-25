@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,15 +30,35 @@ public class TagsAPI {
 		return ResponseEntity.ok(TagsDAO.findAll());
 	}
 	@PostMapping("/Post")
-	public ResponseEntity<Tags> post(@RequestBody Tags reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<Tags> post(@RequestBody Tags tags,  BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (TagsDAO.existsById(tags.getId())) {
+				return ResponseEntity.badRequest().build();
+			}
+			TagsDAO.save(tags);
+			return ResponseEntity.ok(tags);
+		}
 	}
 	@PutMapping("/Put/{x}")
-	public ResponseEntity<Tags> put(@PathVariable("x") String id,@RequestBody Tags reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<Tags> put(@PathVariable("x") Integer id,@RequestBody Tags tags,  BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (TagsDAO.existsById(tags.getId()) && id==tags.getId()) {
+				TagsDAO.save(tags);
+				return ResponseEntity.ok(tags);
+			}
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	@DeleteMapping("/Delete/{x}")
-	public ResponseEntity<Void> delete(@PathVariable("x") String id){
+	public ResponseEntity<Void> delete(@PathVariable("x") Integer id){
+		if(!TagsDAO.existsById(id)) {
+			return ResponseEntity.ok().build();	
+		}
+		TagsDAO.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 }

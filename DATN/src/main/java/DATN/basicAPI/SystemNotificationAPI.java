@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,15 +31,35 @@ public class SystemNotificationAPI {
 		return ResponseEntity.ok(SystemNotificationDAO.findAll());
 	}
 	@PostMapping("/Post")
-	public ResponseEntity<SystemNotification> post(@RequestBody SystemNotification reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<SystemNotification> post(@RequestBody SystemNotification STNF, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (SystemNotificationDAO.existsById(STNF.getId())) {
+				return ResponseEntity.badRequest().build();
+			}
+			SystemNotificationDAO.save(STNF);
+			return ResponseEntity.ok(STNF);
+		}
 	}
 	@PutMapping("/Put/{x}")
-	public ResponseEntity<SystemNotification> put(@PathVariable("x") String id,@RequestBody SystemNotification reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<SystemNotification> put(@PathVariable("x") Integer id,@RequestBody SystemNotification STNF, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (SystemNotificationDAO.existsById(STNF.getId()) && id==STNF.getId()) {
+				SystemNotificationDAO.save(STNF);
+				return ResponseEntity.ok(STNF);
+			}
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	@DeleteMapping("/Delete/{x}")
-	public ResponseEntity<Void> delete(@PathVariable("x") String id){
+	public ResponseEntity<Void> delete(@PathVariable("x") Integer id){
+		if(!SystemNotificationDAO.existsById(id)) {
+			return ResponseEntity.ok().build();	
+		}
+		SystemNotificationDAO.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 }

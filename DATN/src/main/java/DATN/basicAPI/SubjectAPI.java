@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,15 +29,35 @@ public class SubjectAPI {
 		return ResponseEntity.ok(SubjectDAO.findAll());
 	}
 	@PostMapping("/Post")
-	public ResponseEntity<Subject> post(@RequestBody Subject reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<Subject> post(@RequestBody Subject sub, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (SubjectDAO.existsById(sub.getId())) {
+				return ResponseEntity.badRequest().build();
+			}
+			SubjectDAO.save(sub);
+			return ResponseEntity.ok(sub);
+		}
 	}
 	@PutMapping("/Put/{x}")
-	public ResponseEntity<Subject> put(@PathVariable("x") String id,@RequestBody Subject reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<Subject> put(@PathVariable("x") Integer id,@RequestBody Subject sub, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (SubjectDAO.existsById(sub.getId()) && id==sub.getId()) {
+				SubjectDAO.save(sub);
+				return ResponseEntity.ok(sub);
+			}
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	@DeleteMapping("/Delete/{x}")
-	public ResponseEntity<Void> delete(@PathVariable("x") String id){
+	public ResponseEntity<Void> delete(@PathVariable("x") Integer id){
+		if(!SubjectDAO.existsById(id)) {
+			return ResponseEntity.ok().build();	
+		}
+		SubjectDAO.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 }

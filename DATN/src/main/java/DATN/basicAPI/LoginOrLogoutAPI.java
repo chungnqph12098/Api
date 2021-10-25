@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,15 +29,35 @@ public class LoginOrLogoutAPI {
 		return ResponseEntity.ok(LoginOrLogoutDAO.findAll());
 	}
 	@PostMapping("/Post")
-	public ResponseEntity<LoginOrLogout> post(@RequestBody LoginOrLogout reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<LoginOrLogout> post(@RequestBody LoginOrLogout checklog, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (LoginOrLogoutDAO.existsById(checklog.getId())) {
+				return ResponseEntity.badRequest().build();
+			}
+			LoginOrLogoutDAO.save(checklog);
+			return ResponseEntity.ok(checklog);
+		}
 	}
 	@PutMapping("/Put/{x}")
-	public ResponseEntity<LoginOrLogout> put(@PathVariable("x") String id,@RequestBody LoginOrLogout reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<LoginOrLogout> put(@PathVariable("x") Integer id,@RequestBody LoginOrLogout checklog, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (LoginOrLogoutDAO.existsById(checklog.getId()) && id==checklog.getId()) {
+				LoginOrLogoutDAO.save(checklog);
+				return ResponseEntity.ok(checklog);
+			}
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	@DeleteMapping("/Delete/{x}")
-	public ResponseEntity<Void> delete(@PathVariable("x") String id){
+	public ResponseEntity<Void> delete(@PathVariable("x") Integer id){
+		if(!LoginOrLogoutDAO.existsById(id)) {
+			return ResponseEntity.ok().build();	
+		}
+		LoginOrLogoutDAO.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 }

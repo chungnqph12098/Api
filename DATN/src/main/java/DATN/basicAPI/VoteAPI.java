@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,15 +36,35 @@ public class VoteAPI {
 		return ResponseEntity.ok(Post_VoteDAO.findAll());
 	}
 	@PostMapping("/Post/Post")
-	public ResponseEntity<Post_Vote> postPost(@RequestBody Post_Vote reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<Post_Vote> postPost(@RequestBody Post_Vote postVote, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (Post_VoteDAO.existsById(postVote.getId())) {
+				return ResponseEntity.badRequest().build();
+			}
+			Post_VoteDAO.save(postVote);
+			return ResponseEntity.ok(postVote);
+		}
 	}
 	@PutMapping("/Post/Put/{x}")
-	public ResponseEntity<Post_Vote> putPost(@PathVariable("x") String id,@RequestBody Post_Vote reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<Post_Vote> putPost(@PathVariable("x") Integer id,@RequestBody Post_Vote postVote, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (Post_VoteDAO.existsById(postVote.getId()) && id==postVote.getId()) {
+				Post_VoteDAO.save(postVote);
+				return ResponseEntity.ok(postVote);
+			}
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	@DeleteMapping("/Post/Delete/{x}")
-	public ResponseEntity<Void> deletePost(@PathVariable("x") String id){
+	public ResponseEntity<Void> deletePost(@PathVariable("x") Integer id){
+		if(!Post_VoteDAO.existsById(id)) {
+			return ResponseEntity.ok().build();	
+		}
+		Post_VoteDAO.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 	//Reply_Vote
@@ -52,15 +73,35 @@ public class VoteAPI {
 		return ResponseEntity.ok(Reply_VoteDAO.findAll());
 	}
 	@PostMapping("/Reply/Post")
-	public ResponseEntity<Reply_Vote> post(@RequestBody Reply_Vote reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<Reply_Vote> post(@RequestBody Reply_Vote replyVote, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (Reply_VoteDAO.existsById(replyVote.getId())) {
+				return ResponseEntity.badRequest().build();
+			}
+			Reply_VoteDAO.save(replyVote);
+			return ResponseEntity.ok(replyVote);
+		}
 	}
 	@PutMapping("/Reply/Put/{x}")
-	public ResponseEntity<Reply_Vote> put(@PathVariable("x") String id,@RequestBody Reply_Vote reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<Reply_Vote> put(@PathVariable("x") Integer id,@RequestBody Reply_Vote replyVote, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (Reply_VoteDAO.existsById(replyVote.getId()) && id==replyVote.getId()) {
+				Reply_VoteDAO.save(replyVote);
+				return ResponseEntity.ok(replyVote);
+			}
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	@DeleteMapping("/Reply/Delete/{x}")
-	public ResponseEntity<Void> delete(@PathVariable("x") String id){
+	public ResponseEntity<Void> delete(@PathVariable("x") Integer id){
+		if(!Reply_VoteDAO.existsById(id)) {
+			return ResponseEntity.ok().build();	
+		}
+		Reply_VoteDAO.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 }

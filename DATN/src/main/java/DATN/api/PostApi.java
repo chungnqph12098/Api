@@ -21,14 +21,14 @@ import DATN.Class.QuestionHS;
 import DATN.ClassDTO.questionHSDTO;
 import DATN.DAO.Post_VoteDAO;
 import DATN.DAO.UsersDAO;
-import DATN.DAO.QuetionHSDAO;
+import DATN.DAO.QuestionHSDAO;
 
 @CrossOrigin(originPatterns = "http://localhost:3000/")
 @RestController
 @RequestMapping("Post")
 public class PostApi {
 	@Autowired
-	QuetionHSDAO quetionHSDAO;
+	QuestionHSDAO quetionHSDAO;
 	@Autowired
 	UsersDAO usersDAO;
 	@Autowired

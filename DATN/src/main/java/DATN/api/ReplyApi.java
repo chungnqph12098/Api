@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import DATN.Class.Reply;
 import DATN.ClassDTO.replyDTO;
-import DATN.DAO.QuetionHSDAO;
+import DATN.DAO.QuestionHSDAO;
 import DATN.DAO.ReplyDAO;
 import DATN.DAO.Reply_VoteDAO;
 import DATN.DAO.UsersDAO;
@@ -34,7 +34,7 @@ public class ReplyApi {
 	@Autowired
 	Reply_VoteDAO reply_voteDAO;
 	@Autowired
-	QuetionHSDAO quetionHSDAO;
+	QuestionHSDAO quetionHSDAO;
 
 	
 	@GetMapping("/get")

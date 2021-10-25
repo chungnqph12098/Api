@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,15 +29,35 @@ public class User_reportAPI {
 		return ResponseEntity.ok(User_reportDAO.findAll());
 	}
 	@PostMapping("/Post")
-	public ResponseEntity<user_report> post(@RequestBody user_report reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<user_report> post(@RequestBody user_report reportUser, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (User_reportDAO.existsById(reportUser.getId())) {
+				return ResponseEntity.badRequest().build();
+			}
+			User_reportDAO.save(reportUser);
+			return ResponseEntity.ok(reportUser);
+		}
 	}
 	@PutMapping("/Put/{x}")
-	public ResponseEntity<user_report> put(@PathVariable("x") String id,@RequestBody user_report reply){
-		return ResponseEntity.ok(reply);
+	public ResponseEntity<user_report> put(@PathVariable("x") Integer id,@RequestBody user_report reportUser, BindingResult result){
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			if (User_reportDAO.existsById(reportUser.getId()) && id==reportUser.getId()) {
+				User_reportDAO.save(reportUser);
+				return ResponseEntity.ok(reportUser);
+			}
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	@DeleteMapping("/Delete/{x}")
-	public ResponseEntity<Void> delete(@PathVariable("x") String id){
+	public ResponseEntity<Void> delete(@PathVariable("x") Integer id){
+		if(!User_reportDAO.existsById(id)) {
+			return ResponseEntity.ok().build();	
+		}
+		User_reportDAO.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 
