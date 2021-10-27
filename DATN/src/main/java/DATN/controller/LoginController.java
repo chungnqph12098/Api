@@ -24,7 +24,8 @@ public class LoginController {
 	public String home(OAuth2AuthenticationToken oauth) {
 		String name = oauth.getPrincipal().getAttribute("name");
 		String email = oauth.getPrincipal().getAttribute("email");
-		return "Hello " + name + " And " +  " Email " + email;
+		String info = oauth.getPrincipal().toString();
+		return info;
 	}
 	
 	
