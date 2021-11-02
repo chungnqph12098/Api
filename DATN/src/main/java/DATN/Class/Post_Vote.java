@@ -1,5 +1,6 @@
 package DATN.Class;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,8 +20,9 @@ import lombok.NoArgsConstructor;
 public class Post_Vote {
 	@Id
 	private Integer id;
-	private Integer LikeOrDis;
 	private Integer PostPins;
+	@Column(name="LikeOrDis")
+	private Integer type;
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	Users users;

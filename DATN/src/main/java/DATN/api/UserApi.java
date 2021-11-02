@@ -40,7 +40,7 @@ public class UserApi {
 		return ResponseEntity.ok(usersDAO.findAll());
 	}
 	
-	@PostMapping("/post")
+	@PostMapping("/Post")
 	public ResponseEntity<Users> post(@RequestBody Users users, BindingResult result){
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().build();

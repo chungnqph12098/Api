@@ -49,4 +49,6 @@ public class Reply {
 	@JsonIgnore
 	@OneToMany(mappedBy = "reply")
 	List<Reply_Vote> Reply_Vote;
+	
+
 }

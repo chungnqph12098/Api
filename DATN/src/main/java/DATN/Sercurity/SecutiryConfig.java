@@ -13,19 +13,19 @@ public class SecutiryConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
 
         http
-                .antMatcher("/**").authorizeRequests()
-                .antMatchers("/login", "/notlogin").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2Login()
-                .defaultSuccessUrl("/login/success")
-                
-                ;
+//                .antMatcher("/**").authorizeRequests()
+//                .antMatchers("/login", "/notlogin").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .oauth2Login()
+//                .defaultSuccessUrl("/login/success")
+//                
+//                ;
         
-// //use for test api
-//        .csrf().disable()
-//        .authorizeRequests()
-//            .anyRequest().permitAll();
+ //use for test api
+        .csrf().disable()
+        .authorizeRequests()
+            .anyRequest().permitAll();
 		
 
 	

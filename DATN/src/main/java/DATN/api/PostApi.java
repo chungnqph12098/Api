@@ -4,6 +4,8 @@ package DATN.api;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,6 +40,10 @@ public class PostApi {
 	public ResponseEntity<List<questionHSDTO>> getfull() {
 		return ResponseEntity.ok(getList());
 	}
+//	@GetMapping("/get/{x}")
+//	public ResponseEntity<QuestionHS> getpost(@PathVariable("x") Integer id) {
+//		return ResponseEntity.ok(quetionHSDAO.findAllbyId(id));
+//	}
 	@PostMapping("/Post")
 	public ResponseEntity<QuestionHS> post(@RequestBody QuestionHS questionHS){
 		return ResponseEntity.ok(questionHS);
@@ -61,6 +67,13 @@ public class PostApi {
 		}
 		return list;
 	}
+	
+//	public Optional<questionHSDTO> getById( Integer id){
+//		Optional<questionHSDTO> question = Optional.of(new questionHSDTO());
+//		Optional<QuestionHS> q = quetionHSDAO.findById(id);
+//		
+//		return question;
+//	}
 }
 
 	

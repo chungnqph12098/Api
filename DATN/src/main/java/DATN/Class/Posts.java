@@ -32,9 +32,10 @@ import lombok.NoArgsConstructor;
 public class Posts implements Serializable {
 	@Id
 	private Integer id;
-	private Integer displayStatus;
-	private Integer anonymus;
 	private Integer type;
+	private Integer anonymus;
+	private Integer status;
+	
 	@ManyToOne
 	@JoinColumn(name = "User_id")
 	Users users;
