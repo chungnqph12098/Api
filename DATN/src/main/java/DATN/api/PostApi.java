@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import DATN.Class.Posts;
 import DATN.Class.QuestionHS;
-import DATN.ClassDTO.questionHSDTO;
+import DATN.Class.Reply;
+import DATN.ClassDTO.postDTO;
+import DATN.DAO.PostDAO;
 import DATN.DAO.Post_VoteDAO;
 import DATN.DAO.UsersDAO;
 import DATN.DAO.QuestionHSDAO;
+import DATN.DAO.ReplyDAO;
 
 @CrossOrigin(originPatterns = "http://localhost:3000/")
 @RestController
@@ -32,18 +35,22 @@ public class PostApi {
 	@Autowired
 	QuestionHSDAO quetionHSDAO;
 	@Autowired
+	PostDAO postDAO;
+	@Autowired
 	UsersDAO usersDAO;
 	@Autowired
 	Post_VoteDAO post_voteDAO;
+	@Autowired
+	ReplyDAO replyDAO;
 	
 	@GetMapping("/get")
-	public ResponseEntity<List<questionHSDTO>> getfull() {
+	public ResponseEntity<List<postDTO>> getfull() {
 		return ResponseEntity.ok(getList());
 	}
-//	@GetMapping("/get/{x}")
-//	public ResponseEntity<QuestionHS> getpost(@PathVariable("x") Integer id) {
-//		return ResponseEntity.ok(quetionHSDAO.findAllbyId(id));
-//	}
+	@GetMapping("/get/{x}")
+	public ResponseEntity<Optional<Posts>> get(@PathVariable("x") Integer id) {
+		return ResponseEntity.ok(postDAO.findById(id));
+	}
 	@PostMapping("/Post")
 	public ResponseEntity<QuestionHS> post(@RequestBody QuestionHS questionHS){
 		return ResponseEntity.ok(questionHS);
@@ -56,11 +63,11 @@ public class PostApi {
 	public ResponseEntity<Void> delete(@PathVariable("x") String id){
 		return ResponseEntity.ok().build();
 	}
-	public List<questionHSDTO> getList() {
-		List<questionHSDTO> list =new ArrayList<questionHSDTO>();
+	public List<postDTO> getList() {
+		List<postDTO> list =new ArrayList<postDTO>();
 		List<QuestionHS> listq= quetionHSDAO.findAll();
 		for(QuestionHS dl:listq) {
-			questionHSDTO hsdto =new questionHSDTO();
+			postDTO hsdto =new postDTO();
 			hsdto.setHs(dl);
 			hsdto.setPost_Votes(post_voteDAO.find(dl.getPosts()));
 			list.add(hsdto);
@@ -68,12 +75,12 @@ public class PostApi {
 		return list;
 	}
 	
-//	public Optional<questionHSDTO> getById( Integer id){
-//		Optional<questionHSDTO> question = Optional.of(new questionHSDTO());
-//		Optional<QuestionHS> q = quetionHSDAO.findById(id);
-//		
-//		return question;
-//	}
+	public Optional<postDTO> getById(Integer id){
+		Optional<postDTO> post = Optional.of(new postDTO());
+		Optional<QuestionHS> q = quetionHSDAO.findById(id);
+		
+		return post;
+	}
 }
 
 	

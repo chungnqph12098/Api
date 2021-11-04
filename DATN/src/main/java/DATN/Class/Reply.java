@@ -50,5 +50,7 @@ public class Reply {
 	@OneToMany(mappedBy = "reply")
 	List<Reply_Vote> Reply_Vote;
 	
+	
+	
 
 }

@@ -1,6 +1,8 @@
 package DATN.basicAPI;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import DATN.Class.QuestionHS;
+import DATN.ClassDTO.postDTO;
+import DATN.ClassDTO.questionHSDTO;
 import DATN.DAO.QuestionHSDAO;
+import DATN.DAO.ReplyDAO;
 
 
 
@@ -26,10 +31,18 @@ import DATN.DAO.QuestionHSDAO;
 public class QuestionHSAPI {
 	@Autowired
 	QuestionHSDAO QuestionHSDAO;
+	@Autowired
+	ReplyDAO replyDAO;
 	@GetMapping("/get")
-	public ResponseEntity<List<QuestionHS>> getfull() {
-		return ResponseEntity.ok(QuestionHSDAO.findAll());
+	public ResponseEntity<List<questionHSDTO>> getfull() {
+		return ResponseEntity.ok(getList());
 	}
+	
+	@GetMapping("/get/{x}")
+	public ResponseEntity<QuestionHS> get(@PathVariable("x") Integer id) {
+		return ResponseEntity.ok(QuestionHSDAO.findAllbyId(id));
+	}
+	
 	@PostMapping("/Post")
 	public ResponseEntity<QuestionHS> post(@RequestBody QuestionHS questionHS, BindingResult result){
 		if (result.hasErrors()) {
@@ -61,5 +74,26 @@ public class QuestionHSAPI {
 		}
 		QuestionHSDAO.deleteById(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	private List<questionHSDTO> getList() {
+		List<questionHSDTO> list = new ArrayList<questionHSDTO>();
+		List<QuestionHS> listq = QuestionHSDAO.findAll();
+		for(QuestionHS ql:listq) {
+			questionHSDTO hsdto = new questionHSDTO();
+			hsdto.setHs(ql);
+			hsdto.setPosts(ql.getPosts());
+			hsdto.setReply(replyDAO.find(ql));
+			list.add(hsdto);
+		}
+		
+		return list;
+	}
+	
+	public Optional<questionHSDTO> getById( Integer id){
+		Optional<questionHSDTO> question = Optional.of(new questionHSDTO());
+		Optional<QuestionHS> q = QuestionHSDAO.findById(id);
+		
+		return question;
 	}
 }

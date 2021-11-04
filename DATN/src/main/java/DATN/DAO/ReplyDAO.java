@@ -12,6 +12,6 @@ import DATN.Class.QuestionHS;
 
 
 public interface ReplyDAO extends JpaRepository<Reply, Integer>{
-//	@Query("select r from Reply r where r.questionhs=?1")
-//	List<Reply> find(questionHS question);
+	@Query("select r from Reply r where r.questionhs=?1")
+	List<Reply> find(QuestionHS question);
 }

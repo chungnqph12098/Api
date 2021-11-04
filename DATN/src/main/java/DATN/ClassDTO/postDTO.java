@@ -2,7 +2,7 @@ package DATN.ClassDTO;
 
 import java.util.List;
 
-import DATN.Class.Posts;
+import DATN.Class.Post_Vote;
 import DATN.Class.QuestionHS;
 import DATN.Class.Reply;
 import lombok.AllArgsConstructor;
@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class questionHSDTO {
+public class postDTO  {
 	private QuestionHS hs;
-	private Posts posts;
-	private List<Reply> reply;
+	private List<Post_Vote> post_Votes;
 }

@@ -23,9 +23,11 @@ public class Post_Vote {
 	private Integer PostPins;
 	@Column(name="LikeOrDis")
 	private Integer type;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	Users users;
+	
 	@ManyToOne
 	@JoinColumn(name = "posts_id")
 	Posts posts;

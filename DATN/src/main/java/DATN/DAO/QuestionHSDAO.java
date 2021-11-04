@@ -7,6 +7,6 @@ import DATN.Class.QuestionHS;
 
 
 public interface QuestionHSDAO extends JpaRepository<QuestionHS, Integer> {
-//	@Query("select q from QuestionHS q join reply r on q.posts_id = r.questionHS_id where q.id =1")
-//	QuestionHS findAllbyId(Integer id);
+	@Query("select q from QuestionHS q join Reply r on q.id = r.questionhs where q.id =?1")
+	QuestionHS findAllbyId(Integer id);
 }
